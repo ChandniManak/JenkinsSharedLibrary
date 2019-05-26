@@ -9,7 +9,6 @@ try{
     }
     
    stage('Setup and initialization') { 
-      
        setup "https://github.com/ChandniManak/MVC.git"
    }
     
@@ -28,7 +27,6 @@ try{
     stage('Deploy Artifacts'){
         deployArtifacts "JFrog_Artifactory", "./target/*.war", "local-snapshot"
     }
-    
     
      stage('Send Job Success Notification'){
        notify "SUCCESSFUL"
