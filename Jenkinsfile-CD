@@ -10,8 +10,8 @@ node(label:'SLAVE01') {
   
   stage('Deploy WAR file to Host machine'){
       
-      //deployArtifactsToHost "/var/lib/jenkins/workspace/CD/artifacts/${env.BUILD_NUMBER}/*.war" "root@52.172.142.170:/usr/local/tomcat/webapps"
-      "sh "scp /var/lib/jenkins/workspace/CD/artifacts/${env.BUILD_NUMBER}/*.war root@52.172.142.170:/usr/local/tomcat/webapps""
+      deployArtifactsToHost "/var/lib/jenkins/workspace/CD/artifacts/${env.BUILD_NUMBER}/*.war" "root@52.172.142.170:/usr/local/tomcat/webapps"
+      //"sh "scp /var/lib/jenkins/workspace/CD/artifacts/${env.BUILD_NUMBER}/*.war root@52.172.142.170:/usr/local/tomcat/webapps""
   }
   
 }
