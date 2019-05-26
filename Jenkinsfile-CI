@@ -2,11 +2,9 @@
 
 node(label:'master') {
 
-def image
-
 try{
 
- stage('Send Job Started Notification'){
+    stage('Send Job Started Notification'){
       notify "STARTED"
     }
     
