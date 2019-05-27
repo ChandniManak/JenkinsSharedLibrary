@@ -7,6 +7,7 @@ node(label:'SLAVE01') {
    }
   
   stage('Build Project'){
-      sonarQube "SONAR_SERVER", "MAVEN_HOME"
+      mvnHome = tool "MAVEN_HOME"
+      sh "${mvnHome}/bin/mvn clean package"
     }
 }   
