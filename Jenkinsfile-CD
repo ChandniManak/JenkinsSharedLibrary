@@ -17,7 +17,7 @@ node(label:'SLAVE01') {
     }
     
     stage('Send Job Success Notification'){
-       notify " [CD Build] SUCCESS "
+       notify "[CD Build] SUCCESS"
     }
     
   }
