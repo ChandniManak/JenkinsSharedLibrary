@@ -17,7 +17,7 @@ node(label:'SLAVE01') {
     }
     
     stage('Send Job Success Notification'){
-       notify "[CD Build] SUCCESS"
+       notify "SUCCESS"
     }
     
   }
@@ -25,7 +25,7 @@ node(label:'SLAVE01') {
   catch(e){
   
      stage('Send Job Failure Notification'){
-      notify "[CD Build] FAILED"
+      notify "FAILED"
     }
 
     currentBuild.result = 'FAILURE'
