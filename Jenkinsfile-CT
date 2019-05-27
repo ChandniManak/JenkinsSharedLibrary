@@ -1,0 +1,12 @@
+@Library('shared_library')_
+
+node(label:'SLAVE01') {
+
+   stage('Setup and initialization') { 
+       setup "https://github.com/ChandniManak/TestFramework.git"
+   }
+  
+  stage('Build Project'){
+      sonarQube "SONAR_SERVER", "MAVEN_HOME"
+    }
+}   
