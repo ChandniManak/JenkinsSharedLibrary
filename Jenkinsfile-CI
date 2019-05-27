@@ -5,7 +5,7 @@ node(label:'master') {
 try{
 
     stage('Send Job Started Notification'){
-      notify "STARTED"
+      notify "[CI Build] STARTED"
     }
     
    stage('Setup and initialization') { 
@@ -29,7 +29,7 @@ try{
     }
     
      stage('Send Job Success Notification'){
-       notify "SUCCESSFUL"
+       notify "[CI Build] SUCCESS"
     }
     
     
@@ -38,7 +38,7 @@ try{
     catch(e){
     
     stage('Send Job Failure Notification'){
-      notify "FAILED"
+      notify "[CI Build] FAILED"
     }
 
     currentBuild.result = 'FAILURE'
