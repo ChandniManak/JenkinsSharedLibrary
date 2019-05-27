@@ -33,6 +33,7 @@ node(label:'SLAVE01') {
   
      stage('Send Job Failure Notification'){
       notify "FAILED"
+      echo ${e}
     }
 
     currentBuild.result = 'FAILURE'
