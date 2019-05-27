@@ -2,16 +2,34 @@
 
 node(label:'SLAVE01') {
   
-  stage('Download Artifacts'){
+  try {
+  
+   stage('Download Artifacts'){
     
-    downloadArtifacts "JFrog_Artifactory", "local-snapshot/${env.BUILD_NUMBER}/*.war", "./artifacts/"
+      downloadArtifacts "JFrog_Artifactory", "local-snapshot/${env.BUILD_NUMBER}/*.war", "./artifacts/"
+    
+    }
+  
+    stage('Deploy WAR file to Host machine'){
+      
+        //deployArtifactsToHost "/var/lib/jenkins/workspace/CD/artifacts/${env.BUILD_NUMBER}/*.war" "root@52.172.142.170:/usr/local/tomcat/webapps"
+       sh "scp /var/lib/jenkins/workspace/CD/artifacts/${env.BUILD_NUMBER}/*.war root@52.172.142.170:/usr/local/tomcat/webapps"
+    }
+    
+    stage('Send Job Success Notification'){
+       notify " [CD Build] SUCCESS "
+    }
     
   }
   
-  stage('Deploy WAR file to Host machine'){
-      
-      //deployArtifactsToHost "/var/lib/jenkins/workspace/CD/artifacts/${env.BUILD_NUMBER}/*.war" "root@52.172.142.170:/usr/local/tomcat/webapps"
-      sh "scp /var/lib/jenkins/workspace/CD/artifacts/${env.BUILD_NUMBER}/*.war root@52.172.142.170:/usr/local/tomcat/webapps"
+  catch(e){
+  
+     stage('Send Job Failure Notification'){
+      notify "[CD Build] FAILED"
+    }
+
+    currentBuild.result = 'FAILURE'
+
   }
   
 }
