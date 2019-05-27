@@ -7,7 +7,7 @@ node(label:'SLAVE01') {
    stage('Download Artifacts'){
     
       downloadArtifacts "JFrog_Artifactory", "local-snapshot/${env.BUILD_NUMBER}/*.war", "./artifacts/"
-    
+    sh "echo $Server"
     }
   
     stage('Deploy WAR file to Host machine'){
