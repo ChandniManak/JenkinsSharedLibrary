@@ -12,9 +12,15 @@ node(label:'SLAVE01') {
   
     stage('Deploy WAR file to Host machine'){
     
-      def applicationServer = root@52.172.142.170
       
-       sh "scp /var/lib/jenkins/workspace/CD/artifacts/${env.BUILD_NUMBER}/*.war ${applicationServer}:/usr/local/tomcat/webapps"
+      // sh "scp /var/lib/jenkins/workspace/CD/artifacts/${env.BUILD_NUMBER}/*.war root@52.172.142.170:/usr/local/tomcat/webapps"
+      
+      def props = readProperties file: "MyApplicationServer"
+      def machine = props['host']
+      
+      sh "scp /var/lib/jenkins/workspace/CD/artifacts/${env.BUILD_NUMBER}/*.war ${machine}:/usr/local/tomcat/webapps"
+      
+      
     }
     
     stage('Send Job Success Notification'){
