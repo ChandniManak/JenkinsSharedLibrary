@@ -1,13 +1,34 @@
 @Library('shared_library')_
 
 node(label:'SLAVE01') {
-
-   stage('Setup and initialization') { 
-       setup "https://github.com/ChandniManak/TestFramework.git"
-   }
+   try {
+      stage('Setup and initialization') { 
+         setup "https://github.com/ChandniManak/TestFramework.git"
+      }
   
-  stage('Build Project'){
-      mvnHome = tool "MAVEN_HOME"
-      sh "${mvnHome}/bin/mvn clean package"
+    stage('Build Project'){
+        mvnHome = tool "MAVEN_HOME"
+        sh "${mvnHome}/bin/mvn clean package"
+     }
+     
+     stage('Deploy Report file to Host machine'){
+      
+       sh "scp /var/lib/jenkins/workspace/CT/*.html root@52.172.142.170:/usr/local/tomcat/webapps"
     }
+    
+    stage('Send Job Success Notification'){
+       notify "SUCCESS"
+    }
+    
+    }
+    
+    catch(e){
+  
+     stage('Send Job Failure Notification'){
+      notify "FAILED"
+    }
+
+    currentBuild.result = 'FAILURE'
+
+  }
 }   
