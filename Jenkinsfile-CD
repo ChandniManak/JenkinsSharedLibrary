@@ -15,11 +15,11 @@ node(label:'SLAVE01') {
       
       // sh "scp /var/lib/jenkins/workspace/CD/artifacts/${env.BUILD_NUMBER}/*.war root@52.172.142.170:/usr/local/tomcat/webapps"
       
+      configFileProvider([configFile(fileId: "da012259-4e5b-49ac-bc15-00241e5b97ef", variable: 'MyApplicationServer')]) {
       def props = readProperties file: "MyApplicationServer"
       def machine = props['host']
-      
       sh "scp /var/lib/jenkins/workspace/CD/artifacts/${env.BUILD_NUMBER}/*.war ${machine}:/usr/local/tomcat/webapps"
-      
+      }
       
     }
     
