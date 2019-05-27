@@ -11,11 +11,7 @@ node(label:'SLAVE01') {
         sh "${mvnHome}/bin/mvn clean package"
      }
      
-     stage('Deploy Report file to Host machine'){
       
-       sh "scp /var/lib/jenkins/workspace/CT/target/*.jar root@52.172.142.170:/usr/local/tomcat/webapps"
-    }
-    
     stage('Send Job Success Notification'){
        notify "SUCCESS"
     }
