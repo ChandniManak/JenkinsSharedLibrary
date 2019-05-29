@@ -7,18 +7,18 @@ node(label:'SLAVE01') {
    stage('Download Artifacts'){
     
       downloadArtifacts "JFrog_Artifactory", "local-snapshot/${env.BUILD_NUMBER}/*.war", "./artifacts/"
-      echo "$env.Server"
+      //echo "$env.Server"
     }
   
     stage('Deploy WAR file to Host machine'){
-      sh "echo $Server"
+      //sh "echo $Server"
       
-      // sh "scp /var/lib/jenkins/workspace/CD/artifacts/${env.BUILD_NUMBER}/*.war root@52.172.142.170:/usr/local/tomcat/webapps"
+       sh "scp /var/lib/jenkins/workspace/CD/artifacts/${env.BUILD_NUMBER}/*.war root@52.172.142.170:/usr/local/tomcat/webapps"
       
-      configFileProvider([configFile(fileId: "$myId", variable: 'MyPropertiesConfig')]) {
-        def props = readProperties file: "$MyPropertiesConfig"
-        def machine = props['host']
-        sh "scp /var/lib/jenkins/workspace/CD/artifacts/${env.BUILD_NUMBER}/*.war ${machine}:/usr/local/tomcat/webapps"
+      //configFileProvider([configFile(fileId: "$myId", variable: 'MyPropertiesConfig')]) {
+       // def props = readProperties file: "$MyPropertiesConfig"
+        //def machine = props['host']
+        //sh "scp /var/lib/jenkins/workspace/CD/artifacts/${env.BUILD_NUMBER}/*.war ${machine}:/usr/local/tomcat/webapps"
       }
       
     }
